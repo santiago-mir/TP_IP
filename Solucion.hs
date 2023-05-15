@@ -5,7 +5,7 @@ import Funciones_aux
 --
 -- Nombre de Grupo: Grupo.hs
 -- Integrante 1: Martìn Dosio, dosiomartin@gmail.com, 291/23
--- Integrante 2: Nombre Apellido, email, LU
+-- Integrante 2: Santiago Miranda, san_chan97@hotmail.com, 418/18
 -- Integrante 3: Nombre Apellido, email, LU
 -- Integrante 4: Nombre Apellido, email, LU
 
