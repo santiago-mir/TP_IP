@@ -88,7 +88,8 @@ usuarioConMasAmigos ((user1:user2:us), rs, ps)
                                      
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos ((u:us), rs, ps) = undefined
+estaRobertoCarlos ([], _, _) = False
+estaRobertoCarlos red = cantidadDeAmigos red (usuarioConMasAmigos red) > 10
                                    
 
 -- describir qué hace la función: .....
