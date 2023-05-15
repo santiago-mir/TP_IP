@@ -36,6 +36,15 @@ relacion1_10 = (usuario1, usuario10)
 relacion1_11 = (usuario1, usuario11)
 relacion1_12 = (usuario1, usuario12)
 
+relacion2_5 = (usuario2, usuario5)
+relacion3_5 = (usuario3, usuario5)
+relacion6_7 = (usuario6, usuario7)
+relacion6_8 = (usuario6, usuario8)
+relacion7_8 = (usuario8, usuario7)
+relacion9_10 = (usuario9, usuario10)
+relacion10_11 = (usuario10, usuario11)
+relacion11_12 = (usuario11, usuario12)
+
 publicacion1_1 = (usuario1, "Este es mi primer post", [usuario2, usuario4])
 publicacion1_2 = (usuario1, "Este es mi segundo post", [usuario4])
 publicacion1_3 = (usuario1, "Este es mi tercer post", [usuario2, usuario5])
@@ -97,6 +106,9 @@ redSinRelaciones = (usuariosA, [], [])
 red2 = ([usuario1], [], [])
 red3 = (usuariosA, [], [])
 red4 = (usuariosB, [], [])
+red5 = (usuariosMuchos, [relacion1_2, relacion2_3, relacion3_4, relacion4_5], [])
+red6 = (usuariosMuchos, [relacion1_2, relacion2_3, relacion3_4, relacion4_5, relacion3_5, relacion2_5, relacion1_3,
+    relacion6_8, relacion9_10, relacion7_8, relacion6_7, relacion11_12, relacion10_11], [])
 redRobertoCarlos = (usuariosMuchos, relacionesMuchas, publicacionesA)
 
 testSuiteEj1 = test [
@@ -151,5 +163,10 @@ testSuiteEj9 = test [
     ]
 
 testSuiteEj10 = test [
-    "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False
+    "Red con usuarios, con los usuarios relacionados en primer orden (directamente)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario2) ~?= True,
+    "Red con usuarios, con los usuarios relacionados en segundo orden (desde un solo amigo)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
+    "Red con usuarios, con los usuarios relacionados en tercer orden (desde dos amigos)" ~: (existeSecuenciaDeAmigos red5 usuario1 usuario5) ~?= True,
+    "Red con usuarios, siendo ambos usuarios el mismo, tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario1 usuario1) ~?= True,
+    "Red con usuarios, siendo ambos usuarios el mismo, no tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario5 usuario5) ~?= False,
+    "Red con usuarios, todos con amigos pero sin existir una cadena" ~: (existeSecuenciaDeAmigos red6 usuario1 usuario10) ~?= False
     ]
