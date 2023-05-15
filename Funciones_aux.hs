@@ -33,3 +33,9 @@ cantidad _ [] = 0
 cantidad x (y:ys)
     | x == y = 1 + cantidad x ys
     | otherwise = cantidad x ys
+
+sonPermutacion :: (Eq t) => [t] -> [t] -> Bool 
+sonPermutacion list1 list2 = longitud list1 == longitud list2 && mismaCantidadDeCadaElemento list1 list2
+        where   mismaCantidadDeCadaElemento :: (Eq t) => [t] -> [t] -> Bool
+                mismaCantidadDeCadaElemento [] _ = True
+                mismaCantidadDeCadaElemento (x:xs) ys = cantidad x (x:xs) == cantidad x ys && mismaCantidadDeCadaElemento (quitarTodos x (x:xs)) ys

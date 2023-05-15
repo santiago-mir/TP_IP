@@ -118,13 +118,9 @@ publicacionesQueLeGustanA (us, rs, (p:ps)) user | longitud ps == 0 && not (perte
 
 -- Dada una red social y dos usuarios, verifica si les gustan las mismas publicaciones
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones red u1 u2 = sonIguales (publicacionesQueLeGustanA red u1) (publicacionesQueLeGustanA red u2)
+lesGustanLasMismasPublicaciones red u1 u2 = sonPermutacion (publicacionesQueLeGustanA red u1) (publicacionesQueLeGustanA red u2)
+-- Como pueden estar en orden diferente un == no alcanza, y por eso hay que verificar que sean permutaciones entre sí
 
-        where   sonIguales :: (Eq t) => [t] -> [t] -> Bool -- Como pueden estar en orden diferente un == no alcanza, y por eso hay que verificar que sean permutaciones entre sí
-                sonIguales list1 list2 = longitud list1 == longitud list2 && mismaCantidadDeCadaElemento list1 list2
-                        where   mismaCantidadDeCadaElemento :: (Eq t) => [t] -> [t] -> Bool
-                                mismaCantidadDeCadaElemento [] _ = True
-                                mismaCantidadDeCadaElemento (x:xs) ys = cantidad x (x:xs) == cantidad x ys && mismaCantidadDeCadaElemento (quitarTodos x (x:xs)) ys
 
 -- Ejercicio 9
 
