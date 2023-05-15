@@ -26,3 +26,10 @@ longitud (x:xs) = 1 + longitud xs
 pertenece :: (Eq t) => t -> [t] -> Bool
 pertenece _ [] = False
 pertenece x (y:ys) = x == y || pertenece x ys
+
+
+cantidad :: (Eq t) => t -> [t] -> Int
+cantidad _ [] = 0
+cantidad x (y:ys)
+    | x == y = 1 + cantidad x ys
+    | otherwise = cantidad x ys
