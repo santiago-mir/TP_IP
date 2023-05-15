@@ -109,7 +109,10 @@ publicacionesDe (us, rs, (p:ps)) user | longitud ps == 0 && usuarioDePublicacion
 
 -- describir qué hace la función: .....
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
-publicacionesQueLeGustanA (us, rs, (p:ps)) user = undefined                        
+publicacionesQueLeGustanA (us, rs, (p:ps)) user | longitud ps == 0 && not (pertenece user (likesDePublicacion p)) = []  
+                                                | longitud ps == 0 && pertenece user (likesDePublicacion p) = [p]
+                                                | pertenece user (likesDePublicacion p) = p : publicacionesQueLeGustanA (us, rs, ps) user
+                                                | otherwise                             = publicacionesQueLeGustanA (us, rs, ps) user                    
 
 -- Ejercicio 8
 
