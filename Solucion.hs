@@ -75,10 +75,10 @@ cantidadDeAmigos :: RedSocial -> Usuario -> Int
 cantidadDeAmigos rs us = fromIntegral (longitud (amigosDe rs us))
 
  
--- describir qué hace la función: .....
+-- Dada una red válidoa con al menos un usuario, devuelve el usuario con más amigos
 
-usuarioConMasAmigos :: RedSocial -> Usuario
-usuarioConMasAmigos ([user], _, _) = user
+usuarioConMasAmigos :: RedSocial -> Usuario     -- Se fija entre los primeros 2 usuarios cuál tiene más amigos, y repite con el resto de los usuarios
+usuarioConMasAmigos ([user], _, _) = user       -- y el que tenga más de estos. Cuando solo quede un usuario, ese será el que tenga más amigos
 usuarioConMasAmigos ((user1:user2:us), rs, ps)
         | longitud us == 0 && cantidadDeAmigos red user1 >= cantidadDeAmigos red user2 = user1
         | longitud us == 0 && cantidadDeAmigos red user2 > cantidadDeAmigos red user1 = user2
