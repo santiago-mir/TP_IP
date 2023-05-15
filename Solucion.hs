@@ -40,6 +40,7 @@ likesDePublicacion (_, _, us) = us
 
 -- Ejercicios
 
+-- Ejercicio 1
 
 -- Recorre la lista de usuarios de la red social y toma los nombres de cada usuario
 
@@ -53,7 +54,7 @@ nombresDeUsuarios red = quitarRepetidos (nombresDeUsuariosAux red)
                                                 | otherwise        = nombreDeUsuario u : nombresDeUsuarios (us, rs, ps)
 
                                   
-
+-- Ejercicio 2
 
 -- Dado un usuario, devuelve una lista con sus amigos
 
@@ -68,12 +69,14 @@ amigosDe (us,rs,ps) user = quitarRepetidos(amigosDeAux rs user)
                                         where   user1 = fst r
                                                 user2 = snd r  
 
+-- Ejercicio 3
 
 -- Dado un usuario, devuelve la cantidad de amigos que tiene
 
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
 cantidadDeAmigos rs us = fromIntegral (longitud (amigosDe rs us))
 
+-- Ejercicio 4
  
 -- Dada una red válidoa con al menos un usuario, devuelve el usuario con más amigos
 
@@ -85,24 +88,33 @@ usuarioConMasAmigos ((user1:user2:us), rs, ps)
         | cantidadDeAmigos red user1 >= cantidadDeAmigos red user2 = usuarioConMasAmigos (user1:us,rs,ps) 
         | otherwise = usuarioConMasAmigos (user2:us,rs,ps)
         where red = ((user1:user2:us), rs, ps)
-                                     
+              
+-- Ejercicio 5
+              
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
 estaRobertoCarlos ([], _, _) = False
 estaRobertoCarlos red = cantidadDeAmigos red (usuarioConMasAmigos red) > 10
                                    
+-- Ejercicio 6
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe (us, rs, (p:ps)) user = undefined
 
+-- Ejercicio 7
+
 -- describir qué hace la función: .....
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
 publicacionesQueLeGustanA (us, rs, (p:ps)) user = undefined                        
 
+-- Ejercicio 8
+
 -- describir qué hace la función: .....
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
 lesGustanLasMismasPublicaciones rs u1 u2 = undefined
+
+-- Ejercicio 9
 
 -- Dada una red social y un usuario verifica si existe un usuario que le haya dado like a todas las publicaciones de otro usuario, que tienen que ser al menos una
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
@@ -121,6 +133,8 @@ tieneUnSeguidorFielAux :: [Publicacion] -> Usuario -> Bool
 tieneUnSeguidorFielAux (p:ps) u | longitud ps == 0 = pertenece u (likesDePublicacion p)
                                 | pertenece u (likesDePublicacion p) = tieneUnSeguidorFielAux ps u
                                 | otherwise = False
+
+-- Ejercicio 10
 
 -- describir qué hace la función: .....
 
