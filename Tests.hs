@@ -1,4 +1,4 @@
-module Testing where
+module Tests where
 
 import Test.HUnit
 import Solucion
@@ -59,6 +59,7 @@ redC = (usuariosC, relacionesC, publicacionesC)
 run1 = runTestTT testSuiteEj1
 run2 = runTestTT testSuiteEj2
 run3 = runTestTT testSuiteEj3
+run4 = runTestTT testSuiteEj4
 
 redVacia = ([], [], [])
 redSinRelaciones = (usuariosA, [], [])
@@ -84,4 +85,14 @@ testSuiteEj3 = test [
     "Caso 1: RedSocial con usuarios, sin relaciones" ~: (cantidadDeAmigos redSinRelaciones usuario1) ~?= 0,
     "Caso 2: RedSocial con usuarios y relaciones, usuario sin amigos" ~: (cantidadDeAmigos redC usuario5) ~?= 0,
     "Caso 3: RedSocial con usuarios y relaciones, usuario con amigos" ~: (cantidadDeAmigos redA usuario2) ~?= 3
-    ]        
+    ]      
+
+testSuiteEj4 = test [
+    "Red con varios usuarios, 2 con la mayor cantidad de amigos" ~: expectAny (usuarioConMasAmigos redA) [usuario2, usuario4],
+    "Red con usuarios, sin amigos" ~: expectAny (usuarioConMasAmigos redSinRelaciones) usuariosA,
+    -- "Red sin usuarios" ~: expectAny (usuarioConMasAmigos redVacia) [], No se ve porque se requiere que haya usuarios
+    "Red con un único usuario" ~: (usuarioConMasAmigos red2) ~?= usuario1
+    -- Ejemplo de test: "descripcion" ~: (Implementacion.usuarioConMasAmigos red) ~?= usuario
+    -- Ejemplo de test: "descripcion" ~: expectAny (Implementacion.usuarioConMasAmigos red) [ListaDePosiblesUsuarios],
+    ] 
+expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)
