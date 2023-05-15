@@ -11,6 +11,14 @@ usuario2 = (2, "Natalia")
 usuario3 = (3, "Pedro")
 usuario4 = (4, "Mariela")
 usuario5 = (5, "Natalia")
+usuario6 = (6, "Roberto")
+usuario7 = (7, "María")
+usuario8 = (8, "Luis")
+usuario9 = (9, "Don José")
+usuario10 = (10, "Lucía")
+usuario11 = (11, "Alex")
+usuario12 = (12, "Alex")
+
 
 relacion1_2 = (usuario1, usuario2)
 relacion1_3 = (usuario1, usuario3)
@@ -19,6 +27,14 @@ relacion2_3 = (usuario3, usuario2)
 relacion2_4 = (usuario2, usuario4)
 relacion3_4 = (usuario4, usuario3)
 relacion4_5 = (usuario4, usuario5)
+relacion1_5 = (usuario1, usuario5)
+relacion1_6 = (usuario1, usuario6)
+relacion1_7 = (usuario1, usuario7)
+relacion1_8 = (usuario1, usuario8)
+relacion1_9 = (usuario1, usuario9)
+relacion1_10 = (usuario1, usuario10)
+relacion1_11 = (usuario1, usuario11)
+relacion1_12 = (usuario1, usuario12)
 
 publicacion1_1 = (usuario1, "Este es mi primer post", [usuario2, usuario4])
 publicacion1_2 = (usuario1, "Este es mi segundo post", [usuario4])
@@ -56,16 +72,26 @@ publicacionesC = [publicacion1_1, publicacion1_4]
 redC = (usuariosC, relacionesC, publicacionesC)
 --------------------------------------------------------------------------------------
 
+expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)
+
 run1 = runTestTT testSuiteEj1
 run2 = runTestTT testSuiteEj2
 run3 = runTestTT testSuiteEj3
 run4 = runTestTT testSuiteEj4
+run5 = runTestTT testSuiteEj5
+
+todosTests = [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, testSuiteEj5]
+
+usuariosMuchos = [usuario1,usuario2,usuario3,usuario4,usuario5,usuario6,usuario7,usuario8,usuario9,usuario10,usuario11,usuario12]
+relacionesMuchas = [relacion1_2,relacion1_3,relacion1_4,relacion2_3,relacion2_4,relacion3_4,relacion4_5,
+    relacion1_5,relacion1_6,relacion1_7,relacion1_8,relacion1_9, relacion1_10,relacion1_11,relacion1_12]
 
 redVacia = ([], [], [])
 redSinRelaciones = (usuariosA, [], [])
 red2 = ([usuario1], [], [])
 red3 = (usuariosA, [], [])
 red4 = (usuariosB, [], [])
+redRobertoCarlos = (usuariosMuchos, relacionesMuchas, publicacionesA)
 
 testSuiteEj1 = test [
     "Caso 1: RedSocial sin usuarios" ~: (nombresDeUsuarios redVacia) ~?= [],
@@ -95,4 +121,9 @@ testSuiteEj4 = test [
     -- Ejemplo de test: "descripcion" ~: (Implementacion.usuarioConMasAmigos red) ~?= usuario
     -- Ejemplo de test: "descripcion" ~: expectAny (Implementacion.usuarioConMasAmigos red) [ListaDePosiblesUsuarios],
     ] 
-expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)
+
+testSuiteEj5 = test [
+    "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False,
+    "Red con usuarios, alguno con más de 10 amigos" ~: (estaRobertoCarlos redRobertoCarlos) ~?= True,
+    "Red vacía" ~: (estaRobertoCarlos redVacia) ~?= False
+    ]
