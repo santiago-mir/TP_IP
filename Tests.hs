@@ -79,8 +79,14 @@ run2 = runTestTT testSuiteEj2
 run3 = runTestTT testSuiteEj3
 run4 = runTestTT testSuiteEj4
 run5 = runTestTT testSuiteEj5
+run6 = runTestTT testSuiteEj6
+run7 = runTestTT testSuiteEj7
+run8 = runTestTT testSuiteEj8
+run9 = runTestTT testSuiteEj9
+run10 = runTestTT testSuiteEj10
 
-todosTests = [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, testSuiteEj5]
+
+todosTests = [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, testSuiteEj5, testSuiteEj6, testSuiteEj7, testSuiteEj8, testSuiteEj9, testSuiteEj10] 
 
 usuariosMuchos = [usuario1,usuario2,usuario3,usuario4,usuario5,usuario6,usuario7,usuario8,usuario9,usuario10,usuario11,usuario12]
 relacionesMuchas = [relacion1_2,relacion1_3,relacion1_4,relacion2_3,relacion2_4,relacion3_4,relacion4_5,
@@ -126,4 +132,24 @@ testSuiteEj5 = test [
     "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False,
     "Red con usuarios, alguno con más de 10 amigos" ~: (estaRobertoCarlos redRobertoCarlos) ~?= True,
     "Red vacía" ~: (estaRobertoCarlos redVacia) ~?= False
+    ]
+
+testSuiteEj6 = test [
+    "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False
+    ]
+
+testSuiteEj7 = test [
+    "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False
+    ]
+
+testSuiteEj8 = test [
+    "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False
+    ]
+
+testSuiteEj9 = test [
+    "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False
+    ]
+
+testSuiteEj10 = test [
+    "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False
     ]
