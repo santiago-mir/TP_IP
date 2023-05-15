@@ -47,8 +47,8 @@ likesDePublicacion (_, _, us) = us
 nombresDeUsuarios :: RedSocial -> [String]
 nombresDeUsuarios red = quitarRepetidos (nombresDeUsuariosAux red)
 
-        where   nombresDeUsuariosAux :: RedSocial -> [String]
-                nombresDeUsuariosAux ([], _, _) = []     
+        where   nombresDeUsuariosAux :: RedSocial -> [String]   -- Sería la función principal, solo que puede contener repetidos.
+                nombresDeUsuariosAux ([], _, _) = []            -- Recorre la lista de usuarios y los va agregando al resultado
                 nombresDeUsuariosAux ((u:us), rs, ps)| longitud us == 0 = [nombreDeUsuario u]
                                                 | pertenece u us   = nombresDeUsuarios (us, rs, ps)
                                                 | otherwise        = nombreDeUsuario u : nombresDeUsuarios (us, rs, ps)
@@ -140,7 +140,18 @@ tieneUnSeguidorFielAux (p:ps) u | longitud ps == 0 = pertenece u (likesDePublica
 -- Ejercicio 10
 
 -- describir qué hace la función: .....
-
-                                                   
+          
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
-existeSecuenciaDeAmigos red u1 u2  = undefined
+existeSecuenciaDeAmigos red usuario1 usuario2 = existeSecuenciaDeAmigosEntreSusAmigos red usuario1 usuario2 []
+
+    where   existeSecuenciaDeAmigosEntreSusAmigos :: RedSocial -> Usuario -> Usuario -> [Usuario] -> Bool
+            existeSecuenciaDeAmigosEntreSusAmigos red user1 user2 repetidos
+                | pertenece user1 repetidos = False
+                | pertenece (user1, user2) (relaciones red) || pertenece (user2, user1) (relaciones red) = True
+                | otherwise = anadirAmigoARepetidosYRepetir (amigosDe red user1)
+
+                where   anadirAmigoARepetidosYRepetir :: [Usuario] -> Bool
+                        anadirAmigoARepetidosYRepetir [] = False
+                        anadirAmigoARepetidosYRepetir (u:us)
+                            | u == user1 = False
+                            | otherwise = existeSecuenciaDeAmigosEntreSusAmigos red u user2 (user1:repetidos) || anadirAmigoARepetidosYRepetir us
