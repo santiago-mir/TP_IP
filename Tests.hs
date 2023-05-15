@@ -154,7 +154,8 @@ testSuiteEj5 = test [
 
 -- publicacionesDe
 testSuiteEj6 = test [
-    " publicacionesDe 1" ~: esPermutacion (publicacionesDe redA usuario2) [publicacion2_1, publicacion2_2]
+    " publicacionesDe 1" ~: esPermutacion (publicacionesDe redA usuario2) [publicacion2_1, publicacion2_2],
+    "Usuario sin publicaciones" ~: (publicacionesDe redB usuario2) ~?= []
     ]
 
 -- publicacionesQueLeGustanA
