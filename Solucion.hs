@@ -43,15 +43,15 @@ likesDePublicacion (_, _, us) = us
 
 -- Recorre la lista de usuarios de la red social y toma los nombres de cada usuario
 
-nombresDeUsuariosAux :: RedSocial -> [String]
-nombresDeUsuariosAux ([], _, _) = []     
-nombresDeUsuariosAux ((u:us), rs, ps)| longitud us == 0 = [nombreDeUsuario u]
-                                     | pertenece u us   = nombresDeUsuarios (us, rs, ps)
-                                     | otherwise        = nombreDeUsuario u : nombresDeUsuarios (us, rs, ps)
-
-
 nombresDeUsuarios :: RedSocial -> [String]
-nombresDeUsuarios red = quitarRepetidos (nombresDeUsuariosAux red)                                     
+nombresDeUsuarios red = quitarRepetidos (nombresDeUsuariosAux red)
+
+        where   nombresDeUsuariosAux :: RedSocial -> [String]
+                nombresDeUsuariosAux ([], _, _) = []     
+                nombresDeUsuariosAux ((u:us), rs, ps)| longitud us == 0 = [nombreDeUsuario u]
+                                                | pertenece u us   = nombresDeUsuarios (us, rs, ps)
+                                                | otherwise        = nombreDeUsuario u : nombresDeUsuarios (us, rs, ps)
+
                                   
 
 
@@ -60,13 +60,13 @@ nombresDeUsuarios red = quitarRepetidos (nombresDeUsuariosAux red)
 amigosDe :: RedSocial -> Usuario -> [Usuario]
 amigosDe (us,rs,ps) user = quitarRepetidos(amigosDeAux rs user)
 
-amigosDeAux :: [Relacion] -> Usuario -> [Usuario]
-amigosDeAux [] _ = []
-amigosDeAux (r:rel) user | user1 == user = user2 : amigosDeAux rel user
-                         | user2 == user = user1 : amigosDeAux rel user
-                         | otherwise = amigosDeAux rel user
-                        where   user1 = fst r
-                                user2 = snd r  
+        where   amigosDeAux :: [Relacion] -> Usuario -> [Usuario]
+                amigosDeAux [] _ = []
+                amigosDeAux (r:rel) user | user1 == user = user2 : amigosDeAux rel user
+                                        | user2 == user = user1 : amigosDeAux rel user
+                                        | otherwise = amigosDeAux rel user
+                                        where   user1 = fst r
+                                                user2 = snd r  
 
 
 -- Dado un usuario, devuelve la cantidad de amigos que tiene
