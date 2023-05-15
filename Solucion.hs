@@ -104,10 +104,23 @@ publicacionesQueLeGustanA (us, rs, (p:ps)) user = undefined
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
 lesGustanLasMismasPublicaciones rs u1 u2 = undefined
 
--- describir qué hace la función: .....
-
+-- Dada una red social y un usuario verifica si existe un usuario que le haya dado like a todas las publicaciones de otro usuario, que tienen que ser al menos una
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
-tieneUnSeguidorFiel ((u:us), rs, ps) user = undefined
+tieneUnSeguidorFiel r u | longitud (publicacionesDe r u) == 0 = False
+                        | otherwise = tieneUnSeguidorFielAux2 (tail (publicacionesDe r u)) (likesDePublicacion (head (publicacionesDe r u)))
+
+-- Verifica si alguno de los usuarios de la lista de likes de la primera publicación es un seguidor fiel
+tieneUnSeguidorFielAux2 :: [Publicacion] -> [Usuario] -> Bool
+tieneUnSeguidorFielAux2 _ [] = False
+tieneUnSeguidorFielAux2 [] us = longitud us >= 1
+tieneUnSeguidorFielAux2 p (u:us) | longitud us == 0 = tieneUnSeguidorFielAux p u
+                                 | otherwise = tieneUnSeguidorFielAux p u || tieneUnSeguidorFielAux2 p us
+
+-- Verifica si un usuario ha dado like a todas las publicaciones de 'u'
+tieneUnSeguidorFielAux :: [Publicacion] -> Usuario -> Bool
+tieneUnSeguidorFielAux (p:ps) u | longitud ps == 0 = pertenece u (likesDePublicacion p)
+                                | pertenece u (likesDePublicacion p) = tieneUnSeguidorFielAux ps u
+                                | otherwise = False
 
 -- describir qué hace la función: .....
 
