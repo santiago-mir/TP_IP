@@ -118,7 +118,13 @@ publicacionesQueLeGustanA (us, rs, (p:ps)) user | longitud ps == 0 && not (perte
 
 -- Dada una red social y dos usuarios, verifica si les gustan las mismas publicaciones
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones r u1 u2 = publicacionesQueLeGustanA r u1 == publicacionesQueLeGustanA r u2
+lesGustanLasMismasPublicaciones red u1 u2 = sonIguales (publicacionesQueLeGustanA red u1) (publicacionesQueLeGustanA red u2)
+
+        where   sonIguales :: (Eq t) => [t] -> [t] -> Bool -- Como pueden estar en orden diferente un == no alcanza, y por eso hay que verificar que sean permutaciones entre sí
+                sonIguales list1 list2 = longitud list1 == longitud list2 && mismaCantidadDeCadaElemento list1 list2
+                        where   mismaCantidadDeCadaElemento :: (Eq t) => [t] -> [t] -> Bool
+                                mismaCantidadDeCadaElemento [] _ = True
+                                mismaCantidadDeCadaElemento (x:xs) ys = cantidad x (x:xs) == cantidad x ys && mismaCantidadDeCadaElemento (quitarTodos x (x:xs)) ys
 
 -- Ejercicio 9
 
@@ -127,18 +133,18 @@ tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
 tieneUnSeguidorFiel r u | longitud (publicacionesDe r u) == 0 = False
                         | otherwise = tieneUnSeguidorFielAux2 (tail (publicacionesDe r u)) (likesDePublicacion (head (publicacionesDe r u)))
 
--- Verifica si alguno de los usuarios de la lista de likes de la primera publicación es un seguidor fiel
-tieneUnSeguidorFielAux2 :: [Publicacion] -> [Usuario] -> Bool
-tieneUnSeguidorFielAux2 _ [] = False
-tieneUnSeguidorFielAux2 [] us = longitud us >= 1
-tieneUnSeguidorFielAux2 p (u:us) | longitud us == 0 = tieneUnSeguidorFielAux p u
-                                 | otherwise = tieneUnSeguidorFielAux p u || tieneUnSeguidorFielAux2 p us
+                -- Verifica si alguno de los usuarios de la lista de likes de la primera publicación es un seguidor fiel
+        where   tieneUnSeguidorFielAux2 :: [Publicacion] -> [Usuario] -> Bool
+                tieneUnSeguidorFielAux2 _ [] = False
+                tieneUnSeguidorFielAux2 [] us = longitud us >= 1
+                tieneUnSeguidorFielAux2 p (u:us) | longitud us == 0 = tieneUnSeguidorFielAux p u
+                                                | otherwise = tieneUnSeguidorFielAux p u || tieneUnSeguidorFielAux2 p us
 
--- Verifica si un usuario ha dado like a todas las publicaciones de 'u'
-tieneUnSeguidorFielAux :: [Publicacion] -> Usuario -> Bool
-tieneUnSeguidorFielAux (p:ps) u | longitud ps == 0 = pertenece u (likesDePublicacion p)
-                                | pertenece u (likesDePublicacion p) = tieneUnSeguidorFielAux ps u
-                                | otherwise = False
+                -- Verifica si un usuario ha dado like a todas las publicaciones de 'u'
+                tieneUnSeguidorFielAux :: [Publicacion] -> Usuario -> Bool
+                tieneUnSeguidorFielAux (p:ps) u | longitud ps == 0 = pertenece u (likesDePublicacion p)
+                                                | pertenece u (likesDePublicacion p) = tieneUnSeguidorFielAux ps u
+                                                | otherwise = False
 
 -- Ejercicio 10
 
