@@ -100,10 +100,10 @@ estaRobertoCarlos red = cantidadDeAmigos red (usuarioConMasAmigos red) > 10
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe (us, rs, ps) user     | longitud ps == 0                                   = []
 publicacionesDe (us, rs, (p:ps)) user | longitud ps == 0 && usuarioDePublicacion p == user = [p]
-                                      | usuarioDePublicacion p == user                     = p : publicacionesDe (us, rs, ps) user
-                                      | otherwise                                          = publicacionesDe (us, rs, ps) user
+                                      | longitud ps == 0 && not (usuarioDePublicacion p == user) = []
+                                      | usuarioDePublicacion p == user = p : publicacionesDe (us, rs, ps) user
+                                      | otherwise = publicacionesDe (us, rs, ps) user
 
 -- Ejercicio 7
 
