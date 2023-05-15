@@ -78,7 +78,13 @@ cantidadDeAmigos rs us = fromIntegral (longitud (amigosDe rs us))
 -- describir qué hace la función: .....
 
 usuarioConMasAmigos :: RedSocial -> Usuario
-usuarioConMasAmigos ((u:us), rs, ps) = undefined
+usuarioConMasAmigos ([user], _, _) = user
+usuarioConMasAmigos ((user1:user2:us), rs, ps)
+        | longitud us == 0 && cantidadDeAmigos red user1 >= cantidadDeAmigos red user2 = user1
+        | longitud us == 0 && cantidadDeAmigos red user2 > cantidadDeAmigos red user1 = user2
+        | cantidadDeAmigos red user1 >= cantidadDeAmigos red user2 = usuarioConMasAmigos (user1:us,rs,ps) 
+        | otherwise = usuarioConMasAmigos (user2:us,rs,ps)
+        where red = ((user1:user2:us), rs, ps)
                                      
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
