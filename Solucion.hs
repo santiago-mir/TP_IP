@@ -4,9 +4,9 @@ import Funciones_aux
 -- Completar con los datos del grupo
 --
 -- Nombre de Grupo: Grupo.hs
--- Integrante 1: Martìn Dosio, dosiomartin@gmail.com, 291/23
+-- Integrante 1: Martín Dosio, dosiomartin@gmail.com, 291/23
 -- Integrante 2: Santiago Miranda, san_chan97@hotmail.com, 418/18
--- Integrante 3: Nombre Apellido, email, LU
+-- Integrante 3: Lucas Pujia, lucas.pujia@gmail.com, 481/23
 -- Integrante 4: Nombre Apellido, email, LU
 
 type Usuario = (Integer, String) -- (id, nombre)
