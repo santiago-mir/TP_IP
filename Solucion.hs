@@ -3,8 +3,8 @@ import Funciones_aux
 
 -- Completar con los datos del grupo
 --
--- Nombre de Grupo: xx
--- Integrante 1: Nombre Apellido, email, LU
+-- Nombre de Grupo: Grupo.hs
+-- Integrante 1: Martìn Dosio, dosiomartin@gmail.com, 291/23
 -- Integrante 2: Nombre Apellido, email, LU
 -- Integrante 3: Nombre Apellido, email, LU
 -- Integrante 4: Nombre Apellido, email, LU
