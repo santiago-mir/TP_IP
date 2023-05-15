@@ -3,9 +3,9 @@ import Funciones_aux
 
 -- Completar con los datos del grupo
 --
--- Nombre de Grupo: xx
--- Integrante 1: Nombre Apellido, email, LU
--- Integrante 2: Nombre Apellido, email, LU
+-- Nombre de Grupo: Grupo.hs
+-- Integrante 1: Martìn Dosio, dosiomartin@gmail.com, 291/23
+-- Integrante 2: Santiago Miranda, san_chan97@hotmail.com, 418/18
 -- Integrante 3: Nombre Apellido, email, LU
 -- Integrante 4: Nombre Apellido, email, LU
 
@@ -100,22 +100,25 @@ estaRobertoCarlos red = cantidadDeAmigos red (usuarioConMasAmigos red) > 10
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe (us, rs, ps) user     | longitud ps == 0                                   = []
 publicacionesDe (us, rs, (p:ps)) user | longitud ps == 0 && usuarioDePublicacion p == user = [p]
-                                      | usuarioDePublicacion p == user                     = p : publicacionesDe (us, rs, ps) user
-                                      | otherwise                                          = publicacionesDe (us, rs, ps) user
+                                      | longitud ps == 0 && not (usuarioDePublicacion p == user) = []
+                                      | usuarioDePublicacion p == user = p : publicacionesDe (us, rs, ps) user
+                                      | otherwise = publicacionesDe (us, rs, ps) user
 
 -- Ejercicio 7
 
 -- describir qué hace la función: .....
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
-publicacionesQueLeGustanA (us, rs, (p:ps)) user = undefined                        
+publicacionesQueLeGustanA (us, rs, (p:ps)) user | longitud ps == 0 && not (pertenece user (likesDePublicacion p)) = []  
+                                                | longitud ps == 0 && pertenece user (likesDePublicacion p) = [p]
+                                                | pertenece user (likesDePublicacion p) = p : publicacionesQueLeGustanA (us, rs, ps) user
+                                                | otherwise                             = publicacionesQueLeGustanA (us, rs, ps) user                    
 
 -- Ejercicio 8
 
--- describir qué hace la función: .....
+-- Dada una red social y dos usuarios, verifica si les gustan las mismas publicaciones
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones rs u1 u2 = undefined
+lesGustanLasMismasPublicaciones r u1 u2 = publicacionesQueLeGustanA r u1 == publicacionesQueLeGustanA r u2
 
 -- Ejercicio 9
 
