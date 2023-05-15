@@ -113,9 +113,9 @@ publicacionesQueLeGustanA (us, rs, (p:ps)) user = undefined
 
 -- Ejercicio 8
 
--- describir qué hace la función: .....
+-- Dada una red social y dos usuarios, verifica si les gustan las mismas publicaciones
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones rs u1 u2 = undefined
+lesGustanLasMismasPublicaciones r u1 u2 = publicacionesQueLeGustanA r u1 == publicacionesQueLeGustanA r u2
 
 -- Ejercicio 9
 
