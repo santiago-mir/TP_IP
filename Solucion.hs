@@ -100,6 +100,7 @@ estaRobertoCarlos red = cantidadDeAmigos red (usuarioConMasAmigos red) > 10
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
+publicacionesDe (_, _, []) _ = []
 publicacionesDe red user = quitarRepetidos (publicacionesDeAux red user)
 
         where   publicacionesDeAux :: RedSocial -> Usuario -> [Publicacion]

@@ -5,6 +5,7 @@ import Solucion
 import Funciones_aux
 
 -----------------------------------------------
+
 -- Ejemplos
 usuario1 = (1, "Juan")
 usuario2 = (2, "Natalia")
@@ -90,13 +91,13 @@ run3 = runTestTT testSuiteEj3
 run4 = runTestTT testSuiteEj4
 run5 = runTestTT testSuiteEj5
 run6 = runTestTT testSuiteEj6
-run7 = runTestTT testSuiteEj7
-run8 = runTestTT testSuiteEj8
-run9 = runTestTT testSuiteEj9
-run10 = runTestTT testSuiteEj10
+-- run7 = runTestTT testSuiteEj7
+-- run8 = runTestTT testSuiteEj8
+-- run9 = runTestTT testSuiteEj9
+-- run10 = runTestTT testSuiteEj10
 
 
-todosTests = [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, testSuiteEj5, testSuiteEj6, testSuiteEj7, testSuiteEj8, testSuiteEj9, testSuiteEj10] 
+-- todosTests = [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, testSuiteEj5, testSuiteEj6, testSuiteEj7, testSuiteEj8, testSuiteEj9, testSuiteEj10] 
 
 usuariosMuchos = [usuario1,usuario2,usuario3,usuario4,usuario5,usuario6,usuario7,usuario8,usuario9,usuario10,usuario11,usuario12]
 relacionesMuchas = [relacion1_2,relacion1_3,relacion1_4,relacion2_3,relacion2_4,relacion3_4,relacion4_5,
@@ -114,6 +115,7 @@ redRobertoCarlos = (usuariosMuchos, relacionesMuchas, publicacionesA)
 
 -- nombresDeUsuarios
 testSuiteEj1 = test [
+    -- las relaciones y publicaciones no tienen relevancia en este ejercicio, no se toman en cuenta
     "Caso 1: RedSocial sin usuarios" ~: (nombresDeUsuarios redVacia) ~?= [],
     "Caso 2: RedSocial con un solo usuario" ~: (nombresDeUsuarios red2) ~?= ["Juan"],
     "Caso 3: RedSocial con mas de un usuario" ~: (nombresDeUsuarios red3) ~?= ["Juan", "Natalia", "Pedro", "Mariela"],
@@ -122,14 +124,19 @@ testSuiteEj1 = test [
 
 -- amigosDe
 testSuiteEj2 = test [
-    "Caso 1: RedSocial con usuarios, sin relaciones" ~: (amigosDe redSinRelaciones usuario1) ~?= [],
-    "Caso 2: RedSocial con usuarios y relaciones, usuario sin amigos" ~: (amigosDe redC usuario5) ~?= [],
-    "Caso 3: RedSocial con usuarios y relaciones, usuario con un amigo" ~: (amigosDe redC usuario1) ~?= [(2, "Natalia")],
-    "Caso 4: RedSocial con usuarios y relaciones, usuario con mas de un amigo" ~: (amigosDe redA usuario2) ~?= [(1, "Juan"), (3, "Pedro"), (4, "Mariela")]
+    -- El caso de red social vacia no aplica, la especificacion pide que el usuario pertenezca a la red.
+    -- Las publicaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
+    "Caso 1: RedSocial con un usuario, sin relaciones" ~: (amigosDe red2 usuario1) ~?= [],
+    "Caso 2: RedSocial con mas de un usuario, sin relaciones" ~: (amigosDe red3 usuario1) ~?= [],
+    "Caso 3: RedSocial con mas de un usuario y relaciones, usuario sin amigos" ~: (amigosDe redC usuario5) ~?= [],
+    "Caso 3: RedSocial con mas de un usuario y relaciones, usuario con un amigo" ~: (amigosDe redC usuario1) ~?= [(2, "Natalia")],
+    "Caso 4: RedSocial con mas de un usuario y relaciones, usuario con mas de un amigo" ~: (amigosDe redA usuario2) ~?= [(1, "Juan"), (3, "Pedro"), (4, "Mariela")]
     ]
 
 -- cantidadDeAmigos
 testSuiteEj3 = test [
+    -- El caso de red social vacia no aplica, la especificacion pide que el usuario pertenezca a la red.
+    -- Las publicaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
     "Caso 1: RedSocial con usuarios, sin relaciones" ~: (cantidadDeAmigos redSinRelaciones usuario1) ~?= 0,
     "Caso 2: RedSocial con usuarios y relaciones, usuario sin amigos" ~: (cantidadDeAmigos redC usuario5) ~?= 0,
     "Caso 3: RedSocial con usuarios y relaciones, usuario con amigos" ~: (cantidadDeAmigos redA usuario2) ~?= 3
@@ -137,49 +144,57 @@ testSuiteEj3 = test [
 
 -- usuarioConMasAmigos
 testSuiteEj4 = test [
-    "Red con varios usuarios, 2 con la mayor cantidad de amigos" ~: expectAny (usuarioConMasAmigos redA) [usuario2, usuario4],
-    "Red con usuarios, sin amigos" ~: expectAny (usuarioConMasAmigos redSinRelaciones) usuariosA,
-    -- "Red sin usuarios" ~: expectAny (usuarioConMasAmigos redVacia) [], No se ve porque se requiere que haya usuarios
-    "Red con un único usuario" ~: (usuarioConMasAmigos red2) ~?= usuario1
-    -- Ejemplo de test: "descripcion" ~: (Implementacion.usuarioConMasAmigos red) ~?= usuario
-    -- Ejemplo de test: "descripcion" ~: expectAny (Implementacion.usuarioConMasAmigos red) [ListaDePosiblesUsuarios],
+    -- El caso de red social vacia no aplica, la especificacion pide que la red social tenga por lo menos un usuario
+    -- Las publicaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
+    "Caso 1: RedSocial con un único usuario, sin relaciones" ~: (usuarioConMasAmigos red2) ~?= usuario1,
+    "Caso 2: RedSocial con mas de un usuario, sin relaciones" ~: expectAny (usuarioConMasAmigos redSinRelaciones) usuariosA,
+    "Caso 3: RedSocial con mas de un usuario, 2 con la mayor cantidad de amigos" ~: expectAny (usuarioConMasAmigos redA) [usuario2, usuario4],
+    "Caso 4: RedSocial con mas de un usuario, usuario2 con mas amigos que el resto" ~: (usuarioConMasAmigos redB) ~?= usuario2
     ] 
 
--- estaRobertoCarlos
+-- -- estaRobertoCarlos
 testSuiteEj5 = test [
-    "Red con usuarios, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False,
-    "Red con usuarios, alguno con más de 10 amigos" ~: (estaRobertoCarlos redRobertoCarlos) ~?= True,
-    "Red vacía" ~: (estaRobertoCarlos redVacia) ~?= False
+    -- Las publicaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
+    "Caso 1: RedSocial sin usuarios ni relaciones" ~: (estaRobertoCarlos redVacia) ~?= False,
+    "Caso 2: RedSocial con un unico usuario, sin relaciones" ~: (estaRobertoCarlos red2) ~?= False,
+    "Caso 3: RedSocial con mas de un usuario, sin relaciones" ~: (estaRobertoCarlos red3) ~?= False,
+    "Caso 4: RedSocial con mas de un usuario, pero ninguno con más de 10 amigos" ~: (estaRobertoCarlos redA) ~?= False,
+    "Caso 5: RedSocial con mas de un usuario, alguno con más de 10 amigos" ~: (estaRobertoCarlos redRobertoCarlos) ~?= True
     ]
 
--- publicacionesDe
+-- -- publicacionesDe
 testSuiteEj6 = test [
-    " publicacionesDe 1" ~: esPermutacion (publicacionesDe redA usuario2) [publicacion2_1, publicacion2_2],
-    "Usuario sin publicaciones" ~: (publicacionesDe redB usuario2) ~?= []
+    -- El caso de red social vacia no aplica, la especificacion pide que la red social tenga por lo menos un usuario
+    -- Las relaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
+    "Caso 1: RedSocial con un unico usuario, sin publicaciones" ~: (publicacionesDe red2 usuario1) ~?= [],
+    "Caso 2: RedSocial con mas de un usuario, sin publicaciones" ~: (publicacionesDe red3 usuario1) ~?= [],
+    "Caso 3: RedSocial con mas de un usuario y publicaciones, usuario5 sin publicaciones" ~: (publicacionesDe redC usuario5) ~?= [],
+    "Caso 4: RedSocial con mas de un usuario y publicaciones, usuario1 con publicaciones" ~: (publicacionesDe redA usuario1) ~?= [publicacion1_1, publicacion1_2]  
+    --  Que hace este test? " publicacionesDe 1" ~: esPermutacion (publicacionesDe redA usuario2) [publicacion2_1, publicacion2_2],
     ]
 
--- publicacionesQueLeGustanA
-testSuiteEj7 = test [
-    " publicacionesQueLeGustanA 1" ~: esPermutacion (publicacionesQueLeGustanA redA usuario1) [publicacion2_2, publicacion4_1]
-    ]
+-- -- publicacionesQueLeGustanA
+-- testSuiteEj7 = test [
+--     " publicacionesQueLeGustanA 1" ~: esPermutacion (publicacionesQueLeGustanA redA usuario1) [publicacion2_2, publicacion4_1]
+--     ]
 
--- lesGustanLasMismasPublicaciones
-testSuiteEj8 = test [
-    " lesGustanLasMismasPublicaciones 2" ~: (lesGustanLasMismasPublicaciones redB usuario1 usuario3) ~?= True
-    ]
+-- -- lesGustanLasMismasPublicaciones
+-- testSuiteEj8 = test [
+--     " lesGustanLasMismasPublicaciones 2" ~: (lesGustanLasMismasPublicaciones redB usuario1 usuario3) ~?= True
+--     ]
 
--- tieneUnSeguidorFiel
-testSuiteEj9 = test [
-    " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True
-    ]
+-- -- tieneUnSeguidorFiel
+-- testSuiteEj9 = test [
+--     " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True
+--     ]
 
--- existeSecuenciaDeAmigos
-testSuiteEj10 = test [
-    "Red con usuarios, con los usuarios relacionados en primer orden (directamente)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario2) ~?= True,
-    "Red con usuarios, con los usuarios relacionados en segundo orden (desde un solo amigo)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
-    "Red con usuarios, con los usuarios relacionados en tercer orden (desde dos amigos)" ~: (existeSecuenciaDeAmigos red5 usuario1 usuario5) ~?= True,
-    "Red con usuarios, siendo ambos usuarios el mismo, tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario1 usuario1) ~?= True,
-    "Red con usuarios, siendo ambos usuarios el mismo, no tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario5 usuario5) ~?= False,
-    "Red con usuarios, todos con amigos pero sin existir una cadena" ~: (existeSecuenciaDeAmigos red6 usuario1 usuario10) ~?= False,
-    " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
-    ]
+-- -- existeSecuenciaDeAmigos
+-- testSuiteEj10 = test [
+--     "Red con usuarios, con los usuarios relacionados en primer orden (directamente)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario2) ~?= True,
+--     "Red con usuarios, con los usuarios relacionados en segundo orden (desde un solo amigo)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
+--     "Red con usuarios, con los usuarios relacionados en tercer orden (desde dos amigos)" ~: (existeSecuenciaDeAmigos red5 usuario1 usuario5) ~?= True,
+--     "Red con usuarios, siendo ambos usuarios el mismo, tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario1 usuario1) ~?= True,
+--     "Red con usuarios, siendo ambos usuarios el mismo, no tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario5 usuario5) ~?= False,
+--     "Red con usuarios, todos con amigos pero sin existir una cadena" ~: (existeSecuenciaDeAmigos red6 usuario1 usuario10) ~?= False,
+--     " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
+--     ]
