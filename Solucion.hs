@@ -7,7 +7,7 @@ import Funciones_aux
 -- Integrante 1: Martín Dosio, dosiomartin@gmail.com, 291/23
 -- Integrante 2: Santiago Miranda, san_chan97@hotmail.com, 418/18
 -- Integrante 3: Lucas Pujia, lucas.pujia@gmail.com, 481/23
--- Integrante 4: Nombre Apellido, email, LU
+-- Integrante 4: Luna Praino, prainolunaa@gmail.com, 77/23
 
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
