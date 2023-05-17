@@ -58,7 +58,7 @@ nombresDeUsuarios red = quitarRepetidos (nombresDeUsuariosAux red)
 amigosDe :: RedSocial -> Usuario -> [Usuario]
 amigosDe (us,rs,ps) user = quitarRepetidos (amigosDeAux rs user)
 
-              --
+              -- Recibe una lista de relaciones y un usuario y devuelve una lista con los amigos de ese usuario en la lista de relaciones
         where amigosDeAux :: [Relacion] -> Usuario -> [Usuario]
               amigosDeAux [] _ = []
               amigosDeAux (r:rel) user | user1 == user = user2 : amigosDeAux rel user
@@ -75,7 +75,7 @@ cantidadDeAmigos rs us = fromIntegral (longitud (amigosDe rs us))
 
 -- Ejercicio 4
 
--- Dada una red válidoa con al menos un usuario, devuelve el usuario con más amigos
+-- Dada una red válida con al menos un usuario, devuelve el usuario con más amigos
 usuarioConMasAmigos :: RedSocial -> Usuario     -- Se fija entre los primeros 2 usuarios cuál tiene más amigos, y repite con el resto de los usuarios
 usuarioConMasAmigos ([user], _, _) = user       -- y el que tenga más de estos. Cuando solo quede un usuario, ese será el que tenga más amigos
 usuarioConMasAmigos (user1:user2:us, rs, ps) | longitud us == 0 && cantidadDeAmigos red user1 >= cantidadDeAmigos red user2 = user1
@@ -86,19 +86,19 @@ usuarioConMasAmigos (user1:user2:us, rs, ps) | longitud us == 0 && cantidadDeAmi
 
 -- Ejercicio 5
 
--- describir qué hace la función: .....
+-- Dada una red social, busca si existe un usuario que tenga más de 10 amigos
 estaRobertoCarlos :: RedSocial -> Bool
 estaRobertoCarlos ([], _, _) = False
 estaRobertoCarlos red = cantidadDeAmigos red (usuarioConMasAmigos red) > 10
 
 -- Ejercicio 6
 
--- describir qué hace la función: .....
+-- Dado un usuario, devuelve las publicaciones que subió
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe (_, _, []) _ = []
 publicacionesDe red user = quitarRepetidos (publicacionesDeAux red user)
 
-              --
+              -- Verifica si la publicación en la cabeza de la lista es del usuario pasado como argumento
         where publicacionesDeAux :: RedSocial -> Usuario -> [Publicacion]
               publicacionesDeAux (us, rs, p:ps) user | longitud ps == 0 && usuarioDePublicacion p == user = [p]
                                                      | longitud ps == 0 && (usuarioDePublicacion p /= user) = []
@@ -107,7 +107,7 @@ publicacionesDe red user = quitarRepetidos (publicacionesDeAux red user)
 
 -- Ejercicio 7
 
--- describir qué hace la función: .....
+-- Dada una red social y un usuario, devuelve las publicaciones a las que le dio like
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
 publicacionesQueLeGustanA (us, rs, p:ps) user | longitud ps == 0 && not (pertenece user (likesDePublicacion p)) = []
                                               | longitud ps == 0 && pertenece user (likesDePublicacion p) = [p]
