@@ -45,7 +45,7 @@ likesDePublicacion (_, _, us) = us
 nombresDeUsuarios :: RedSocial -> [String]
 nombresDeUsuarios red = quitarRepetidos (nombresDeUsuariosAux red)
 
-              -- Sería la función principal, solo que puede contener repetidos. Recorre la lista de usuarios y los va agregando al resultado
+              -- Devuelve los nombres de usuario de los usuarios que están en la red social
         where nombresDeUsuariosAux :: RedSocial -> [String]   
               nombresDeUsuariosAux ([], _, _) = []
               nombresDeUsuariosAux (u:us, rs, ps) | longitud us == 0 = [nombreDeUsuario u]
@@ -133,26 +133,27 @@ tieneUnSeguidorFiel r u | longitud (publicacionesDe r u) == 0 = False
               tieneUnSeguidorFielAux2 _ [] = False
               tieneUnSeguidorFielAux2 [] us = longitud us >= 1
               tieneUnSeguidorFielAux2 p (u:us) | longitud us == 0 = tieneUnSeguidorFielAux p u
-                                                 | otherwise = tieneUnSeguidorFielAux p u || tieneUnSeguidorFielAux2 p us
+                                               | otherwise = tieneUnSeguidorFielAux p u || tieneUnSeguidorFielAux2 p us
 
               -- Verifica si un usuario ha dado like a todas las publicaciones de 'u'
               tieneUnSeguidorFielAux :: [Publicacion] -> Usuario -> Bool
               tieneUnSeguidorFielAux (p:ps) u | longitud ps == 0 = pertenece u (likesDePublicacion p)
-                                                | pertenece u (likesDePublicacion p) = tieneUnSeguidorFielAux ps u
-                                                | otherwise = False
+                                              | pertenece u (likesDePublicacion p) = tieneUnSeguidorFielAux ps u
+                                              | otherwise = False
 
 -- Ejercicio 10
 
--- describir qué hace la función: .....
+-- Dados dos usuarios, determina si existe una secuencia de amigos que los conecte
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos red usuario1 usuario2 = existeSecuenciaDeAmigosEntreSusAmigos red usuario1 usuario2 []
 
-               --
+               -- Busca si existe una secuencia de amigos que conecte dos usuarios en la red social
         where  existeSecuenciaDeAmigosEntreSusAmigos :: RedSocial -> Usuario -> Usuario -> [Usuario] -> Bool
                existeSecuenciaDeAmigosEntreSusAmigos red user1 user2 repetidos | pertenece user1 repetidos = False
                                                                                | pertenece (user1, user2) (relaciones red) || pertenece (user2, user1) (relaciones red) = True
                                                                                | otherwise = anadirAmigoARepetidosYRepetir (amigosDe red user1)
-                      --
+
+                      -- Verifica si existe una secuencia de amigos entre los amigos de los usuarios en la lista 'us' que incluya tanto al usuario 'user1' como al usuario 'user2'
                 where anadirAmigoARepetidosYRepetir :: [Usuario] -> Bool
                       anadirAmigoARepetidosYRepetir [] = False
                       anadirAmigoARepetidosYRepetir (u:us) | u == user1 = False
