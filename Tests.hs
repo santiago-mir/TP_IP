@@ -91,7 +91,7 @@ run3 = runTestTT testSuiteEj3
 run4 = runTestTT testSuiteEj4
 run5 = runTestTT testSuiteEj5
 run6 = runTestTT testSuiteEj6
--- run7 = runTestTT testSuiteEj7
+run7 = runTestTT testSuiteEj7
 -- run8 = runTestTT testSuiteEj8
 -- run9 = runTestTT testSuiteEj9
 -- run10 = runTestTT testSuiteEj10
@@ -174,9 +174,15 @@ testSuiteEj6 = test [
     ]
 
 -- -- publicacionesQueLeGustanA
--- testSuiteEj7 = test [
---     " publicacionesQueLeGustanA 1" ~: esPermutacion (publicacionesQueLeGustanA redA usuario1) [publicacion2_2, publicacion4_1]
---     ]
+testSuiteEj7 = test [
+    -- El caso de red social vacia no aplica, la especificacion pide que la red social tenga por lo menos un usuario
+    "Caso 1: RedSocial con un unico usuario, sin publicaciones" ~: (publicacionesQueLeGustanA red2 usuario1) ~?= [],
+    "Caso 2: RedSocial con mas de un usuario, sin publicaciones" ~: (publicacionesQueLeGustanA red3 usuario1) ~?= [],
+    "Caso 3: RedSocial con mas de un usuario y publicaciones, usuario sin publicaciones likeadas" ~: (publicacionesQueLeGustanA redB usuario3) ~?= [],
+    "Caso 4: RedSocial con mas de un usuario y publicaciones, usuario con una publicacion likeada" ~: (publicacionesQueLeGustanA redC usuario2) ~?= [publicacion1_1],
+    "Caso 5: RedSocial con mas de un usuario y publicaciones, usuario con mas de una publicacion likeada" ~: (publicacionesQueLeGustanA redA usuario2) ~?= [publicacion1_1, publicacion3_2, publicacion4_1],
+    " publicacionesQueLeGustanA 1" ~: esPermutacion (publicacionesQueLeGustanA redA usuario1) [publicacion2_2, publicacion4_1]
+    ]
 
 -- -- lesGustanLasMismasPublicaciones
 -- testSuiteEj8 = test [

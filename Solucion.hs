@@ -109,6 +109,7 @@ publicacionesDe red user = quitarRepetidos (publicacionesDeAux red user)
 
 -- Dada una red social y un usuario, devuelve las publicaciones a las que le dio like
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
+publicacionesQueLeGustanA (_, _, []) _ = []
 publicacionesQueLeGustanA (us, rs, p:ps) user | longitud ps == 0 && not (pertenece user (likesDePublicacion p)) = []
                                               | longitud ps == 0 && pertenece user (likesDePublicacion p) = [p]
                                               | pertenece user (likesDePublicacion p) = p : publicacionesQueLeGustanA (us, rs, ps) user
