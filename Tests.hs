@@ -2,7 +2,7 @@ module Tests where
 
 import Test.HUnit
 import Solucion
-import Funciones_aux
+
 
 -----------------------------------------------
 
@@ -52,6 +52,7 @@ publicacion1_2 = (usuario1, "Este es mi segundo post", [usuario4])          -- A
 publicacion1_3 = (usuario1, "Este es mi tercer post", [usuario2, usuario5]) -- B
 publicacion1_4 = (usuario1, "Este es mi cuarto post", [])                   -- B, C
 publicacion1_5 = (usuario1, "Este es como mi quinto post", [usuario5])      -- B
+publicacion1_6 = (usuario1, "Este es como mi sexto post", [usuario1])       
 
 publicacion2_1 = (usuario2, "Hello World", [usuario4])  -- A
 publicacion2_1i = (usuario2, "Hello World", [usuario4]) -- A
@@ -114,6 +115,7 @@ red5 = (usuariosMuchos, [relacion1_2, relacion2_3, relacion3_4, relacion4_5], []
 red6 = (usuariosMuchos, [relacion1_2, relacion2_3, relacion3_4, relacion4_5, relacion3_5, relacion2_5, relacion1_3,
     relacion6_8, relacion9_10, relacion7_8, relacion6_7, relacion11_12, relacion10_11], [])
 redRobertoCarlos = (usuariosMuchos, relacionesMuchas, publicacionesA)
+red7 = ([usuario1], [], [publicacion1_6])
 
 -- nombresDeUsuarios
 testSuiteEj1 = test [
@@ -190,9 +192,13 @@ testSuiteEj7 = test [
 testSuiteEj8 = test [
     -- El caso de red social vacia no aplica, la especificacion pide que la red social tenga por lo menos un usuario
     -- Las relaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
-    "Caso 1: RedSocial con un único usuario en comparación con sigo mismo, que no haya likeado ninguna publicación" ~: (lesGustanLasMismasPublicaciones red2 usuario1 usuario1) ~?= True,
-    "Caso 2: RedSocial con más de un usuario, ambos que no hayan likeado ninguna publicación" ~: (lesGustanLasMismasPublicaciones ([usuario1,usuario2], [], []) usuario1 usuario2) ~?= True,
-    "Caso 3: RedSocial con más de un usuario, uno que no hay likeado ninguna publicación y otro que sí" ~: (lesGustanLasMismasPublicaciones redA usuario1 usuario1) ~?= True
+    "Caso 1: RedSocial con un único usuario en comparación con sigo mismo, sin publicaciones" ~: (lesGustanLasMismasPublicaciones red2 usuario1 usuario1) ~?= True,
+    "Caso 2: RedSocial con un unico usuario en comparacion con sigo mismo, con publicaciones likeadas" ~: (lesGustanLasMismasPublicaciones red7 usuario1 usuario1) ~?= True,
+    "Caso 3: RedSocial con más de un usuario, sin publicaciones" ~: (lesGustanLasMismasPublicaciones ([usuario1,usuario2], [], []) usuario1 usuario2) ~?= True,
+    "Caso 4: RedSocial con más de un usuario, con publicaciones, ambos usuarios sin publicaciones likeadas" ~: (lesGustanLasMismasPublicaciones redC usuario3 usuario5) ~?= True,
+    "Caso 5: RedSocial con más de un usuario, un usuario con publicaciones likeadas y otro sin publicaciones likeadas" ~: (lesGustanLasMismasPublicaciones redC usuario2 usuario3) ~?= False,
+    "Caso 6: RedSocial con más de un usuario, usuarios con likes distintos" ~: (lesGustanLasMismasPublicaciones redA usuario2 usuario4) ~?= False,
+    "Caso 7: RedSocial con más de un usuario, usuarios con las mismas publicaciones likeadas" ~: (lesGustanLasMismasPublicaciones redC usuario2 usuario4) ~?= True
     ]
 
 -- -- tieneUnSeguidorFiel
@@ -202,11 +208,11 @@ testSuiteEj9 = test [
 
 -- -- existeSecuenciaDeAmigos
 testSuiteEj10 = test [
-    "Red con usuarios, con los usuarios relacionados en primer orden (directamente)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario2) ~?= True,
-    "Red con usuarios, con los usuarios relacionados en segundo orden (desde un solo amigo)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
-    "Red con usuarios, con los usuarios relacionados en tercer orden (desde dos amigos)" ~: (existeSecuenciaDeAmigos red5 usuario1 usuario5) ~?= True,
-    "Red con usuarios, siendo ambos usuarios el mismo, tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario1 usuario1) ~?= True,
-    "Red con usuarios, siendo ambos usuarios el mismo, no tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario5 usuario5) ~?= False,
-    "Red con usuarios, todos con amigos pero sin existir una cadena" ~: (existeSecuenciaDeAmigos red6 usuario1 usuario10) ~?= False,
+    "Caso 1: Red con usuarios, con los usuarios relacionados en primer orden (directamente)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario2) ~?= True,
+    "Caso 2: Red con usuarios, con los usuarios relacionados en segundo orden (desde un solo amigo)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
+    "Caso 3: Red con usuarios, con los usuarios relacionados en tercer orden (desde dos amigos)" ~: (existeSecuenciaDeAmigos red5 usuario1 usuario5) ~?= True,
+    "Caso 4: Red con usuarios, siendo ambos usuarios el mismo, tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario1 usuario1) ~?= True,
+    "Caso 5: Red con usuarios, siendo ambos usuarios el mismo, no tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario5 usuario5) ~?= False,
+    "Caso 6: Red con usuarios, todos con amigos pero sin existir una cadena" ~: (existeSecuenciaDeAmigos red6 usuario1 usuario10) ~?= False,
     " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
     ]
