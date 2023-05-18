@@ -2,7 +2,6 @@ module Tests where
 
 import Test.HUnit
 import Solucion
-import Funciones_aux
 
 -----------------------------------------------
 
@@ -112,9 +111,9 @@ run8 = runTestTT testSuiteEj8
 run9 = runTestTT testSuiteEj9
 run10 = runTestTT testSuiteEj10
 
-todosTests = test [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, testSuiteEj5, testSuiteEj6, testSuiteEj7, testSuiteEj8, testSuiteEj9, testSuiteEj10] 
+todosLosTests = test [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, testSuiteEj5, testSuiteEj6, testSuiteEj7, testSuiteEj8, testSuiteEj9, testSuiteEj10] 
 
-runTodos = runTestTT todosTests
+main = runTestTT todosLosTests
 
 usuariosMuchos = [usuario1,usuario2,usuario3,usuario4,usuario5,usuario6,usuario7,usuario8,usuario9,usuario10,usuario11,usuario12]
 relacionesMuchas = [relacion1_2,relacion1_3,relacion1_4,relacion2_3,relacion2_4,relacion3_4,relacion4_5,
