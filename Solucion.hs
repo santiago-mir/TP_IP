@@ -99,11 +99,11 @@ publicacionesDe (_, _, []) _ = []
 publicacionesDe red user = quitarRepetidos (publicacionesDeAux red user)
 
               -- Verifica si la publicación en la cabeza de la lista es del usuario pasado como argumento
-        where publicacionesDeAux :: RedSocial -> Usuario -> [Publicacion]
-              publicacionesDeAux (us, rs, p:ps) user | longitud ps == 0 && usuarioDePublicacion p == user = [p]
-                                                     | longitud ps == 0 && (usuarioDePublicacion p /= user) = []
-                                                     | usuarioDePublicacion p == user = p : publicacionesDeAux (us, rs, ps) user
-                                                     | otherwise = publicacionesDeAux (us, rs, ps) user
+      where publicacionesDeAux :: RedSocial -> Usuario -> [Publicacion]
+            publicacionesDeAux (us, rs, p:ps) user | longitud ps == 0 && usuarioDePublicacion p == user = [p]
+                                                | longitud ps == 0 && (usuarioDePublicacion p /= user) = []
+                                                | usuarioDePublicacion p == user = p : publicacionesDeAux (us, rs, ps) user
+                                                | otherwise = publicacionesDeAux (us, rs, ps) user
 
 -- Ejercicio 7
 
