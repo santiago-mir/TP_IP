@@ -62,14 +62,13 @@ publicacion1_1 = (usuario1, "Este es mi primer post", [usuario2, usuario4]) -- A
 publicacion1_2 = (usuario1, "Este es mi segundo post", [usuario4])          -- A
 publicacion1_3 = (usuario1, "Este es mi tercer post", [usuario2, usuario5]) -- B
 publicacion1_4 = (usuario1, "Este es mi cuarto post", [])                   -- B, C
-publicacion1_5 = (usuario1, "Este es como mi quinto post", [usuario5])      -- B
-publicacion1_6 = (usuario1, "Este es como mi sexto post", [usuario1])       
+publicacion1_5 = (usuario1, "Este es como mi quinto post", [usuario5])      -- B      
 
 publicacion2_1 = (usuario2, "Hello World", [usuario4])                      -- A
 publicacion2_1i = (usuario2, "Hello World", [usuario4])                     -- A
 publicacion2_2 = (usuario2, "Good Bye World", [usuario1, usuario4])         -- A
 
-publicacion3_1 = (usuario3, "Lorem Ipsum", [])                              -- A, B
+publicacion3_1 = (usuario3, "Lorem Ips:um", [])                              -- A, B
 publicacion3_2 = (usuario3, "dolor sit amet", [usuario2])                   -- A, B
 publicacion3_3 = (usuario3, "consectetur adipiscing elit", [usuario2, usuario5])-- B
 
@@ -141,20 +140,6 @@ todosLosTests = test [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, te
 
 main = runTestTT todosLosTests
 
-usuariosMuchos = [usuario1,usuario2,usuario3,usuario4,usuario5,usuario6,usuario7,usuario8,usuario9,usuario10,usuario11,usuario12]
-relacionesMuchas = [relacion1_2,relacion1_3,relacion1_4,relacion2_3,relacion2_4,relacion3_4,relacion4_5,
-    relacion1_5,relacion1_6,relacion1_7,relacion1_8,relacion1_9, relacion1_10,relacion1_11,relacion1_12]
-
-redVacia = ([], [], [])
-redSinRelaciones = (usuariosA, [], [])
-red2 = ([usuario1], [], [])
-red3 = (usuariosA, [], [])
-red4 = (usuariosB, [], [])
-red5 = (usuariosMuchos, [relacion1_2, relacion2_3, relacion3_4, relacion4_5], [])
-red6 = (usuariosMuchos, [relacion1_2, relacion2_3, relacion3_4, relacion4_5, relacion3_5, relacion2_5, relacion1_3,
-    relacion6_8, relacion9_10, relacion7_8, relacion6_7, relacion11_12, relacion10_11], [])
-redRobertoCarlos = (usuariosMuchos, relacionesMuchas, publicacionesA)
-red7 = ([usuario1], [], [publicacion1_6])
 ---- TestSuites:
 
 -- nombresDeUsuarios
