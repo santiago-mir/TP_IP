@@ -2,10 +2,7 @@ module Tests where
 
 import Test.HUnit
 import Solucion
-<<<<<<< HEAD
 
-=======
->>>>>>> b842a111a03c45ba79cf35ad1f4d42b14bff71b4
 
 -----------------------------------------------
 
@@ -144,7 +141,6 @@ todosLosTests = test [testSuiteEj1, testSuiteEj2, testSuiteEj3, testSuiteEj4, te
 
 main = runTestTT todosLosTests
 
-<<<<<<< HEAD
 usuariosMuchos = [usuario1,usuario2,usuario3,usuario4,usuario5,usuario6,usuario7,usuario8,usuario9,usuario10,usuario11,usuario12]
 relacionesMuchas = [relacion1_2,relacion1_3,relacion1_4,relacion2_3,relacion2_4,relacion3_4,relacion4_5,
     relacion1_5,relacion1_6,relacion1_7,relacion1_8,relacion1_9, relacion1_10,relacion1_11,relacion1_12]
@@ -159,9 +155,7 @@ red6 = (usuariosMuchos, [relacion1_2, relacion2_3, relacion3_4, relacion4_5, rel
     relacion6_8, relacion9_10, relacion7_8, relacion6_7, relacion11_12, relacion10_11], [])
 redRobertoCarlos = (usuariosMuchos, relacionesMuchas, publicacionesA)
 red7 = ([usuario1], [], [publicacion1_6])
-=======
 ---- TestSuites:
->>>>>>> b842a111a03c45ba79cf35ad1f4d42b14bff71b4
 
 -- nombresDeUsuarios
 testSuiteEj1 = test [
@@ -243,22 +237,12 @@ testSuiteEj7 = test [
 testSuiteEj8 = test [
     -- El caso de red social vacia no aplica, la especificacion pide que la red social tenga por lo menos un usuario
     -- Las relaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
-<<<<<<< HEAD
-    "Caso 1: RedSocial con un único usuario en comparación con sigo mismo, sin publicaciones" ~: (lesGustanLasMismasPublicaciones red2 usuario1 usuario1) ~?= True,
-    "Caso 2: RedSocial con un unico usuario en comparacion con sigo mismo, con publicaciones likeadas" ~: (lesGustanLasMismasPublicaciones red7 usuario1 usuario1) ~?= True,
-    "Caso 3: RedSocial con más de un usuario, sin publicaciones" ~: (lesGustanLasMismasPublicaciones ([usuario1,usuario2], [], []) usuario1 usuario2) ~?= True,
-    "Caso 4: RedSocial con más de un usuario, con publicaciones, ambos usuarios sin publicaciones likeadas" ~: (lesGustanLasMismasPublicaciones redC usuario3 usuario5) ~?= True,
-    "Caso 5: RedSocial con más de un usuario, un usuario con publicaciones likeadas y otro sin publicaciones likeadas" ~: (lesGustanLasMismasPublicaciones redC usuario2 usuario3) ~?= False,
-    "Caso 6: RedSocial con más de un usuario, usuarios con likes distintos" ~: (lesGustanLasMismasPublicaciones redA usuario2 usuario4) ~?= False,
-    "Caso 7: RedSocial con más de un usuario, usuarios con las mismas publicaciones likeadas" ~: (lesGustanLasMismasPublicaciones redC usuario2 usuario4) ~?= True
-=======
     "Caso 1: RedSocial con un único usuario en comparación con sigo mismo, que no haya likeado ninguna publicación" ~: (lesGustanLasMismasPublicaciones red2 usuario1 usuario1) ~?= True,
     "Caso 2: RedSocial con más de un usuario, ambos que no hayan likeado ninguna publicación" ~: (lesGustanLasMismasPublicaciones ([usuario1,usuario2], [], []) usuario1 usuario2) ~?= True,
     "Caso 3: RedSocial con más de un usuario, uno que no hay likeado ninguna publicación y otro que sí" ~: (lesGustanLasMismasPublicaciones redA usuario3 usuario1) ~?= False,
     "Caso 4: RedSocial con más de un usuario, dos likeando publicaciones pero diferentes, con al menos una en común" ~: (lesGustanLasMismasPublicaciones redA usuario2 usuario1) ~?= False,
     "Caso 5: RedSocial con más de un usuario, ambos likeando una única publicación, siendo la misma" ~: (lesGustanLasMismasPublicaciones redC usuario2 usuario4) ~?= True,
     "Caso 6: RedSocial con más de un usuario, ambos likeando las mismas publicaciones, más de ua" ~: (lesGustanLasMismasPublicaciones (usuariosB,relacionesB,[publicacion1_3, publicacion3_3, publicacion1_2]) usuario3 usuario1) ~?= True
->>>>>>> b842a111a03c45ba79cf35ad1f4d42b14bff71b4
     ]
 
 -- tieneUnSeguidorFiel
