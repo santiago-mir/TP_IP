@@ -254,6 +254,5 @@ testSuiteEj10 = test [
     "Caso 3: Red con usuarios, con los usuarios relacionados en tercer orden (desde dos amigos)" ~: (existeSecuenciaDeAmigos red5 usuario1 usuario5) ~?= True,
     "Caso 4: Red con usuarios, siendo ambos usuarios el mismo, tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario1 usuario1) ~?= True,
     "Caso 5: Red con usuarios, siendo ambos usuarios el mismo, no tiene amigos" ~: (existeSecuenciaDeAmigos redA usuario5 usuario5) ~?= False,
-    "Caso 6: Red con usuarios, todos con amigos pero sin existir una cadena" ~: (existeSecuenciaDeAmigos red6 usuario1 usuario10) ~?= False,
-    " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
+    "Caso 6: Red con usuarios, todos con amigos pero sin existir una cadena" ~: (existeSecuenciaDeAmigos red6 usuario1 usuario10) ~?= False
     ]
