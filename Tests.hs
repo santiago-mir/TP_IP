@@ -63,10 +63,12 @@ publicacion1_2 = (usuario1, "Este es mi segundo post", [usuario4])          -- A
 publicacion1_3 = (usuario1, "Este es mi tercer post", [usuario2, usuario5]) -- B
 publicacion1_4 = (usuario1, "Este es mi cuarto post", [])                   -- B, C
 publicacion1_5 = (usuario1, "Este es como mi quinto post", [usuario5])      -- B      
+    
 
 publicacion2_1 = (usuario2, "Hello World", [usuario4])                      -- A
 publicacion2_1i = (usuario2, "Hello World", [usuario4])                     -- A
 publicacion2_2 = (usuario2, "Good Bye World", [usuario1, usuario4])         -- A
+publicacion2_3 = (usuario2, "Hello Again World", [usuario1, usuario4])         -- A
 
 publicacion3_1 = (usuario3, "Lorem Ips:um", [])                              -- A, B
 publicacion3_2 = (usuario3, "dolor sit amet", [usuario2])                   -- A, B
@@ -76,9 +78,9 @@ publicacion4_1 = (usuario4, "I am Alice. Not", [usuario1, usuario2])        -- A
 publicacion4_2 = (usuario4, "I am Bob", [])                                 -- A
 publicacion4_3 = (usuario4, "Just kidding, i am Mariela", [usuario1, usuario3])
 
-publicacion1_6 =  (usuario1, "Me gusta darme like", [usuario1])         -- Tests ej7
-publicacion1_7 =  (usuario1, "Me gusta darme muchos likes", [usuario1]) -- Tests ej7
-publicacion1_8 =  (usuario1, "Estoy solito", []) -- Tests ej7
+publicacion1_6 =  (usuario1, "Me gusta darme like", [usuario1])         -- Tests ej7, ej 9
+publicacion1_7 =  (usuario1, "Me gusta darme muchos likes", [usuario1]) -- Tests ej7, ej 9
+publicacion1_8 =  (usuario1, "Estoy solito", []) -- Tests ej7, ej 9
 publicacion1_9 =  (usuario1, "Sigo solito", [])  -- Tests ej7
 
 
@@ -115,6 +117,9 @@ red3 = (usuariosA, [], [])  -- red3, solo con un grupo de usuarios
 red4 = (usuariosB, [], [])  -- red4, solo con un grupo de usuarios, diferentes a los de la red3
 red5 = (usuariosMuchos, [relacion1_2, relacion2_3, relacion3_4, relacion4_5], [])   -- red5, muchos usuarios con algunas relaciones
 red6 = (usuariosMuchos, relacionesEnCadena, []) -- red6, muchos usuarios y muchas relaciones
+red7 = ([usuario1], [], [publicacion1_4, publicacion1_8]) -- red7, un unico usuario y publicaciones
+red8 = ([usuario1], [], [publicacion1_6, publicacion1_7]) -- red8, un unico usuario y publicaciones autolikeadas
+red9 = (usuariosA, [], [publicacion2_2, publicacion2_3])
 redRobertoCarlos = (usuariosMuchos, relacionesMuchas, publicacionesA) -- redRobertoCarlos
 redRobertoCarlos2 = (usuariosMuchos, relacionesMuchasMas, []) -- redRobertoCarlos 2
 
@@ -227,12 +232,19 @@ testSuiteEj8 = test [
     "Caso 3: RedSocial con más de un usuario, uno que no hay likeado ninguna publicación y otro que sí" ~: (lesGustanLasMismasPublicaciones redA usuario3 usuario1) ~?= False,
     "Caso 4: RedSocial con más de un usuario, dos likeando publicaciones pero diferentes, con al menos una en común" ~: (lesGustanLasMismasPublicaciones redA usuario2 usuario1) ~?= False,
     "Caso 5: RedSocial con más de un usuario, ambos likeando una única publicación, siendo la misma" ~: (lesGustanLasMismasPublicaciones redC usuario2 usuario4) ~?= True,
-    "Caso 6: RedSocial con más de un usuario, ambos likeando las mismas publicaciones, más de ua" ~: (lesGustanLasMismasPublicaciones (usuariosB,relacionesB,[publicacion1_3, publicacion3_3, publicacion1_2]) usuario3 usuario1) ~?= True
+    "Caso 6: RedSocial con más de un usuario, ambos likeando las mismas publicaciones, más de una" ~: (lesGustanLasMismasPublicaciones (usuariosB,[],[publicacion1_3, publicacion3_3, publicacion1_2]) usuario3 usuario1) ~?= True
     ]
 
 -- tieneUnSeguidorFiel
 testSuiteEj9 = test [
-    " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True
+    -- El caso de red social vacia no aplica, la especificacion pide que la red social tenga por lo menos un usuario
+    -- Las relaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
+    "Caso 1: RedSocial con un unico usuario, sin publicaciones" ~: (tieneUnSeguidorFiel red2 usuario1) ~?= False,
+    "Caso 2: RedSocial con un unico usuario, con publicaciones sin likes" ~: (tieneUnSeguidorFiel red7 usuario1) ~?= False,
+    "Caso 3: RedSocial con un unico usuario, con publicaciones likeadas por el mismo usuario" ~: (tieneUnSeguidorFiel red8 usuario1) ~?= False,
+    "Caso 4: RedSocial con mas de un usuario, usuario sin seguidor fiel" ~: (tieneUnSeguidorFiel redA usuario3) ~?= False,
+    "Caso 5: RedSocial con mas de un usuario, usuario con un seguidor fiel" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True,
+    "Caso 6: RedSocial con mas de un usuario, usuario con mas de un seguidor fiel" ~: (tieneUnSeguidorFiel red9 usuario2) ~?= True
     ]
 
 -- existeSecuenciaDeAmigos

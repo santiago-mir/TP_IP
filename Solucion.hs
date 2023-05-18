@@ -102,7 +102,8 @@ lesGustanLasMismasPublicaciones red u1 u2 = sonPermutacion (publicacionesQueLeGu
 
 -- Dada una red social y un usuario verifica si existe un usuario que le haya dado like a todas las publicaciones de otro usuario, que tienen que ser al menos una
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
-tieneUnSeguidorFiel r u | longitud (publicacionesDe r u) == 0 = False
+tieneUnSeguidorFiel r u | longitud (usuarios r) == 1 = False
+                        | longitud (publicacionesDe r u) == 0 = False
                         | otherwise = tieneUnSeguidorFielAux2 (tail (publicacionesDe r u)) (likesDePublicacion (head (publicacionesDe r u)))
 
               -- Verifica si alguno de los usuarios de la lista de likes de la primera publicación es un seguidor fiel
