@@ -102,21 +102,20 @@ lesGustanLasMismasPublicaciones red u1 u2 = sonPermutacion (publicacionesQueLeGu
 
 -- Dada una red social y un usuario verifica si existe un usuario que le haya dado like a todas las publicaciones de otro usuario, que tienen que ser al menos una
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
-tieneUnSeguidorFiel r u | longitud (usuarios r) == 1 = False
-                        | longitud (publicacionesDe r u) == 0 = False
-                        | otherwise = tieneUnSeguidorFielAux2 (tail (publicacionesDe r u)) (likesDePublicacion (head (publicacionesDe r u)))
+tieneUnSeguidorFiel r u | longitud (publicacionesDe r u) == 0 = False
+                        | otherwise = algunoDioLikeAPublicaciones (tail (publicacionesDe r u)) (quitar u (likesDePublicacion (head (publicacionesDe r u))))
 
               -- Verifica si alguno de los usuarios de la lista de likes de la primera publicación es un seguidor fiel
-        where tieneUnSeguidorFielAux2 :: [Publicacion] -> [Usuario] -> Bool
-              tieneUnSeguidorFielAux2 _ [] = False
-              tieneUnSeguidorFielAux2 [] us = longitud us >= 1
-              tieneUnSeguidorFielAux2 p (u:us) | longitud us == 0 = tieneUnSeguidorFielAux p u
-                                               | otherwise = tieneUnSeguidorFielAux p u || tieneUnSeguidorFielAux2 p us
+        where algunoDioLikeAPublicaciones :: [Publicacion] -> [Usuario] -> Bool
+              algunoDioLikeAPublicaciones _ [] = False
+              algunoDioLikeAPublicaciones [] us = longitud us >= 1
+              algunoDioLikeAPublicaciones p (u:us) | longitud us == 0 = usuarioDioLikeAPublicaciones p u
+                                               | otherwise = usuarioDioLikeAPublicaciones p u || algunoDioLikeAPublicaciones p us
 
               -- Verifica si un usuario ha dado like a todas las publicaciones de 'u'
-              tieneUnSeguidorFielAux :: [Publicacion] -> Usuario -> Bool
-              tieneUnSeguidorFielAux (p:ps) u | longitud ps == 0 = pertenece u (likesDePublicacion p)
-                                              | pertenece u (likesDePublicacion p) = tieneUnSeguidorFielAux ps u
+              usuarioDioLikeAPublicaciones :: [Publicacion] -> Usuario -> Bool
+              usuarioDioLikeAPublicaciones (p:ps) u | longitud ps == 0 = pertenece u (likesDePublicacion p)
+                                              | pertenece u (likesDePublicacion p) = usuarioDioLikeAPublicaciones ps u
                                               | otherwise = False
 
 -- Ejercicio 10
@@ -177,6 +176,7 @@ quitarTodos x xs | xs == [] || not (pertenece x xs) = xs
 
 -- Dado un valor y una lista, devuelve una nueva lista igual a la lista "xs", excepto que el primer elemento en "xs" se elimina de la lista resultante
 quitar :: (Eq t) => t -> [t] -> [t]
+quitar _ [] = []
 quitar n (x:xs) | n == x = xs
                 | otherwise = x : quitar n xs
 
