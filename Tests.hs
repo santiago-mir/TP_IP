@@ -249,6 +249,8 @@ testSuiteEj9 = test [
 
 -- existeSecuenciaDeAmigos
 testSuiteEj10 = test [
+    -- El caso de red social vacia no aplica, la especificacion pide que la red social tenga por lo menos un usuario
+    -- Las publicaciones no tienen relevancia en este ejercicio, no se tienen en cuenta
     "Caso 1: Red con usuarios, con los usuarios relacionados en primer orden (directamente)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario2) ~?= True,
     "Caso 2: Red con usuarios, con los usuarios relacionados en segundo orden (desde un solo amigo)" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
     "Caso 3: Red con usuarios, con los usuarios relacionados en tercer orden (desde dos amigos)" ~: (existeSecuenciaDeAmigos red5 usuario1 usuario5) ~?= True,
